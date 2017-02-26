@@ -24,7 +24,7 @@ CHIME_Theta = 49.321;
 CHIME_Phi = 240.376;
 Altitude_Vector_Field = 400;
 Angle_Range = atand(2000/(400+Earths_Mean_Radius))
-Mesh_Size = 100;
+Mesh_Size = 500;
 Mesh = Angle_Range*2/Mesh_Size;
 
 %   Matrix memory allocation (theta increase by column to the right, phi increases by row downwards)
