@@ -1,5 +1,5 @@
 %Main Operation with GUI Inputs
-clear all
+
 %   Current Date and time
 Year = 2015;
 Month = 1;
@@ -44,39 +44,22 @@ for column = 1:Mesh_Size
         x_matrix(row, column) = x;
         y_matrix(row, column) = y;
         z_matrix(row, column) = z;
-        [Br ,Bt, Bp] = IGRF_Model(r, theta, phi,Days_since_Jan_1st_2015);
-        [Bx, By, Bz] = sph2cart(Bp, Bt, Br);
-        Bx_matrix(row, column) = Bx;
-        By_matrix(row, column) = By;
-        Bz_matrix(row, column) = Bz;
+        [Br,Bt,Bp] = IGRF_MO
     end
 end
 
-% plot3(x_matrix, y_matrix, z_matrix)
-% hold on
-% [x_earth, y_earth, z_earth] = sphere(200);
-% colormap winter
-% shading interp
-% Earth=surfl(Earths_Mean_Radius*x_earth,Earths_Mean_Radius*y_earth,Earths_Mean_Radius*z_earth);
-% set(Earth, 'edgecolor','none');
-% hold on
-% [CHIME_Cart_x, CHIME_Cart_y, CHIME_Cart_z] = sph2cart(deg2rad(CHIME_Phi), deg2rad(CHIME_Theta), Earths_Mean_Radius+0.05);
-% [x_CHIME, y_CHIME, z_CHIME] = sphere(200);
-% shading interp
-% CHIME=surfl(50*x_CHIME+CHIME_Cart_x,50*y_CHIME+CHIME_Cart_y,50*z_CHIME+CHIME_Cart_z);
-
-figure;
-quiver3(x_matrix, y_matrix, z_matrix, Bx_matrix, By_matrix, Bz_matrix)
+plot3(x_matrix, y_matrix, z_matrix)
 hold on
 [x_earth, y_earth, z_earth] = sphere(200);
-colormap summer
+colormap winter
 shading interp
 Earth=surfl(Earths_Mean_Radius*x_earth,Earths_Mean_Radius*y_earth,Earths_Mean_Radius*z_earth);
-set(Earth, 'edgecolor','none');
+set(Earth, 'edgecolo','none');
 hold on
 [CHIME_Cart_x, CHIME_Cart_y, CHIME_Cart_z] = sph2cart(deg2rad(CHIME_Phi), deg2rad(CHIME_Theta), Earths_Mean_Radius+0.05);
 [x_CHIME, y_CHIME, z_CHIME] = sphere(200);
 shading interp
 CHIME=surfl(50*x_CHIME+CHIME_Cart_x,50*y_CHIME+CHIME_Cart_y,50*z_CHIME+CHIME_Cart_z);
+
 
 
