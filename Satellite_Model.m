@@ -23,11 +23,14 @@ Earths_Mean_Radius = 6371.2; % Reference radius used in IGRF and used to define 
 CHIME_Theta = 49.321;
 CHIME_Phi = 240.376;
 Altitude_Vector_Field = 400;
-Angle_Range = atand(2000/(400+Earths_Mean_Radius))
-Mesh_Size = 500;
-Mesh = Angle_Range*2/Mesh_Size;
+%   Angle_Range in degrees can replace with a normal value
+Angle_Range = atand(2000/(400+Earths_Mean_Radius));
 
-%   Matrix memory allocation (theta increase by column to the right, phi increases by row downwards)
+Mesh_Size = 500;
+
+%   Matrix memory allocation (theta increase by column to the right, phi
+%   increases by row downwards) (Defined by Lat, Long reference frame)
+%   equator is 0 theta, phi is 0 at greenwich merdian
 x_matrix = zeros(Mesh_Size, Mesh_Size);
 y_matrix = zeros(Mesh_Size, Mesh_Size);
 z_matrix = zeros(Mesh_Size, Mesh_Size);
@@ -52,19 +55,8 @@ for column = 1:Mesh_Size
     end
 end
 
-% plot3(x_matrix, y_matrix, z_matrix)
-% hold on
-% [x_earth, y_earth, z_earth] = sphere(200);
-% colormap winter
-% shading interp
-% Earth=surfl(Earths_Mean_Radius*x_earth,Earths_Mean_Radius*y_earth,Earths_Mean_Radius*z_earth);
-% set(Earth, 'edgecolor','none');
-% hold on
-% [CHIME_Cart_x, CHIME_Cart_y, CHIME_Cart_z] = sph2cart(deg2rad(CHIME_Phi), deg2rad(CHIME_Theta), Earths_Mean_Radius+0.05);
-% [x_CHIME, y_CHIME, z_CHIME] = sphere(200);
-% shading interp
-% CHIME=surfl(50*x_CHIME+CHIME_Cart_x,50*y_CHIME+CHIME_Cart_y,50*z_CHIME+CHIME_Cart_z);
 
+%   plot vector field, Earth and CHIME
 figure;
 quiver3(x_matrix, y_matrix, z_matrix, Bx_matrix, By_matrix, Bz_matrix)
 hold on

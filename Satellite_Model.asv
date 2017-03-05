@@ -1,5 +1,5 @@
 %Main Operation with GUI Inputs
-
+clear all
 %   Current Date and time
 Year = 2015;
 Month = 1;
@@ -24,8 +24,7 @@ CHIME_Theta = 49.321;
 CHIME_Phi = 240.376;
 Altitude_Vector_Field = 400;
 Angle_Range = atand(2000/(400+Earths_Mean_Radius))
-Mesh_Size = 100;
-Mesh = Angle_Range*2/Mesh_Size;
+Mesh_Size = 500;
 
 %   Matrix memory allocation (theta increase by column to the right, phi increases by row downwards)
 x_matrix = zeros(Mesh_Size, Mesh_Size);
@@ -44,22 +43,27 @@ for column = 1:Mesh_Size
         x_matrix(row, column) = x;
         y_matrix(row, column) = y;
         z_matrix(row, column) = z;
-        [Br,Bt,Bp] = IGRF_MO
+        [Br ,Bt, Bp] = IGRF_Model(r, theta, phi,Days_since_Jan_1st_2015);
+        [Bx, By, Bz] = sph2cart(Bp, Bt, Br);
+        Bx_matrix(row, column) = Bx;
+        By_matrix(row, column) = By;
+        Bz_matrix(row, column) = Bz;
     end
 end
 
-plot3(x_matrix, y_matrix, z_matrix)
+
+figure;
+quiver3(x_matrix, y_matrix, z_matrix, Bx_matrix, By_matrix, Bz_matrix)
 hold on
 [x_earth, y_earth, z_earth] = sphere(200);
-colormap winter
+colormap summer
 shading interp
 Earth=surfl(Earths_Mean_Radius*x_earth,Earths_Mean_Radius*y_earth,Earths_Mean_Radius*z_earth);
-set(Earth, 'edgecolo','none');
+set(Earth, 'edgecolor','none');
 hold on
 [CHIME_Cart_x, CHIME_Cart_y, CHIME_Cart_z] = sph2cart(deg2rad(CHIME_Phi), deg2rad(CHIME_Theta), Earths_Mean_Radius+0.05);
 [x_CHIME, y_CHIME, z_CHIME] = sphere(200);
 shading interp
 CHIME=surfl(50*x_CHIME+CHIME_Cart_x,50*y_CHIME+CHIME_Cart_y,50*z_CHIME+CHIME_Cart_z);
-
 
 
