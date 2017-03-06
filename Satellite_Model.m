@@ -15,7 +15,7 @@ Current_Date_String = strcat(num2str(Month),'/',num2str(Day),'/',num2str(Year));
 Days_since_Jan_1st_2015 = daysact('1/1/2015', Current_Date_String);
 
 % Vector Field of IGRF Model for line of sight of CHIME and Ground Station
-Earths_Mean_Radius = 6371.2; % Reference radius used in IGRF and used to define altitude
+Earths_Mean_Radius = 6371.2; % Reference radius used in IGRF and used to define altitude [km]
 
 %   CHIME Coordinates: 	49° 19? 15.6? N, 119° 37? 26.4? W
 %   49.321 (theta),-119.624 (phi) or 240.376

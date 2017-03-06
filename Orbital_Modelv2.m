@@ -37,7 +37,6 @@ end
 Orbital_Matrix (:,1) = 2 .* atan(sqrt((1+eccentricity)/(1-eccentricity)) .* tan(E/2));
 Orbital_Matrix (:,2) = semimajor_axis * (1-eccentricity^2)./ (1 + eccentricity.*cos(Orbital_Matrix(:,1)));
 Orbital_Matrix (:,3) = 1;
-%   Orbit_Interval_Time = sqrt((4*(pi^2)*(semimajor_axis)^3)/(GM)).*(M./(2*pi));
 Orbital_Matrix (:,4) = sqrt((4*(pi^2)*(semimajor_axis)^3)/(GM)).*(M./(2*pi));
 Output_Matrix = Orbital_Matrix;
 
@@ -48,14 +47,27 @@ for k = 2:num_of_orbits
     Temp_Matrix (:,4) = Orbital_Matrix(:,4) + sqrt((4*(pi^2)*(semimajor_axis)^3)/(GM))* k;
     Output_Matrix = vertcat(Output_Matrix, Temp_Matrix);
 end
+%   Euler Transformation Matrix
 B = [cos(argument_of_perigee), sin(argument_of_perigee), 0; -sin(argument_of_perigee), cos(argument_of_perigee), 0; 0, 0, 1];
 C = [1, 0, 0; 0, cos(inclination), sin(inclination); 0, -sin(inclination), cos(inclination)];
 D = [cos(RAAN), sin(RAAN), 0; -sin(RAAN), cos(RAAN), 0; 0, 0, 1];
-Euler_Transformation_Matrix = B.*C.*D;
+Euler_Transformation_Matrix = B*C*D;
 
-
-% Output_Matrix(:,5) = Output_Matrix(:,2).*cos(Output_Matrix(:,1)+angle_of_perigee);
-% Output_Matrix(:,6) = Output_Matrix(:,2).*sin(Output_Matrix(:,1)+angle_of_perigee);
-% Output_Matrix(:,7) = Output_Matrix(:,2).*sin(inclination);
+%   ECI Coordinates
+for k = 1:length(Output_Matrix)
+    Temp_Array = [Output_Matrix(k,2).*cos(Output_Matrix(k,1)), Output_Matrix(k,2).*sin(Output_Matrix(k,1)), 0]*Euler_Transformation_Matrix;
+    Output_Matrix(k, 5) = Temp_Array(1);
+    Output_Matrix(k, 6) = Temp_Array(2);
+    Output_Matrix(k, 7) = Temp_Array(3);
+end
+%   ECI to ECEF Coordinates
+for k = 1:length(Output_Matrix)
+    ECI2ECEF_Matrix = dcmeci2ecef('IAU-2000/2006', Start_Datetime + seconds(Output_Matrix(k,4)));
+    Temp_Array = [Output_Matrix(k,5), Output_Matrix(k,6), Output_Matrix(k,7)]*ECI2ECEF_Matrix;
+    Output_Matrix(k, 8) = Temp_Array(1);
+    Output_Matrix(k, 9) = Temp_Array(2);
+    Output_Matrix(k, 10) = Temp_Array(3);
+end
 Output_Matrix;
 end
+
