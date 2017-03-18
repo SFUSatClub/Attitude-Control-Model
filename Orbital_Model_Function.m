@@ -1,6 +1,5 @@
 function [ Output_Matrix ] = Orbital_Model_Function( Start_Datetime, eccentricity, inclination, semimajor_axis, Num_Intervals, RAAN, argument_of_perigee, num_of_orbits)
-%UNTITLED3 Summary of this function goes here
-%   Detailed explanation goes here
+%   Keplerian Orbital Model
 
 %   eccentricity is the eccentricity of the orbit specified by GUI
 %   inclination is the incliation of the orbit specified by GUI
@@ -11,7 +10,7 @@ function [ Output_Matrix ] = Orbital_Model_Function( Start_Datetime, eccentricit
 %   argument_of_perigee is the the polar angle on the orbital plane from
 %   RAAN to the closest point of the orbit to the earth. It is 0 for
 %   eccentricity of 0. [Radians]
-%   Time values are the starting time values of the orbit
+%   Time values are with respect to the starting time values of the orbit
 Num_of_Terms_in_infinite_Series = 10;
 GM = 3.986005*10^14;
 %   [True_Anomaly, Altitude, Orbit #, Time,
