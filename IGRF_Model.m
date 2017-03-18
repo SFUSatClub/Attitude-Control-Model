@@ -82,13 +82,5 @@ for m=0:N
         end
     end
 end
-% Br = -Bp/sin(theta);
-% Bt = -Bt;
-% Br = Br;
-% [Br,Bt,Bp] = [Br_ignore; Bt_ignore; Br_ignore];
-%[Br,Bt,Bp] = [Br;-Bt;(-Bp./sin(theta))];
-
-
-
 end
 

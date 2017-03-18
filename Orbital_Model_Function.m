@@ -1,4 +1,4 @@
-function [ Output_Matrix, E ] = Orbital_Modelv2( Start_Datetime, eccentricity, inclination, semimajor_axis, Num_Intervals, RAAN, argument_of_perigee, num_of_orbits)
+function [ Output_Matrix ] = Orbital_Model_Function( Start_Datetime, eccentricity, inclination, semimajor_axis, Num_Intervals, RAAN, argument_of_perigee, num_of_orbits)
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -44,7 +44,7 @@ Output_Matrix = Orbital_Matrix;
 for k = 2:num_of_orbits
     Temp_Matrix = Orbital_Matrix;
     Temp_Matrix (:,3) = k;
-    Temp_Matrix (:,4) = Orbital_Matrix(:,4) + sqrt((4*(pi^2)*(semimajor_axis)^3)/(GM))* k;
+    Temp_Matrix (:,4) = Orbital_Matrix(:,4) + sqrt((4*(pi^2)*(semimajor_axis)^3)/(GM))* (k-1);
     Output_Matrix = vertcat(Output_Matrix, Temp_Matrix);
 end
 %   Euler Transformation Matrix
@@ -62,7 +62,9 @@ for k = 1:length(Output_Matrix)
 end
 %   ECI to ECEF Coordinates
 for k = 1:length(Output_Matrix)
-    ECI2ECEF_Matrix = dcmeci2ecef('IAU-2000/2006', Start_Datetime + seconds(Output_Matrix(k,4)));
+    Temp_Date = Start_Datetime + seconds(Output_Matrix(k, 4));
+    Data_Array = [year(Temp_Date), month(Temp_Date), day(Temp_Date), hour(Temp_Date), minute(Temp_Date), second(Temp_Date)];
+    ECI2ECEF_Matrix = dcmeci2ecef('IAU-2000/2006', Data_Array);
     Temp_Array = [Output_Matrix(k,5), Output_Matrix(k,6), Output_Matrix(k,7)]*ECI2ECEF_Matrix;
     Output_Matrix(k, 8) = Temp_Array(1);
     Output_Matrix(k, 9) = Temp_Array(2);

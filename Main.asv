@@ -1,0 +1,25 @@
+%Main Operation with GUI Inputs
+
+%   GUI Replacement
+Launch_Time = datetime();
+%   Orbital Properties
+Orbital_Eccentricity = 0;
+Orbital_Inclination = 0;
+Orbital_Semimajor_axis = 0;
+Orbital_Mesh = 0;
+Orbital_RAAN = 0;
+Orbital_Arg_of_Perigee = 0;
+Orbital_Num_of_Orbits = 0;
+
+%   Dynamic Properties
+
+
+%   Model Operation
+
+%   Orbit Propogation - Defines Result_Matrix as
+%   [True_Anomaly, Altitude, Orbital_Number, Time_since_launch, CM_ECI_x, CM_ECI_y, CM_ECI_z, CM_ECEF_x, CM_ECEF_y, CM_ECEF_z]
+Results = Orbital_Model_Function(Launch_Time, Orbital_Eccentricity, Orbital_Inclination, Orbital_Semimajor_Axis, Orbital_Mesh, Orbital_RAAn, Orbital_Arg_of_Perigee, Orbital_Num_of_Orbits);
+
+%   Earth Magnetic Field Model
+%   Add to Results three vectors for Earths magnetic field x, y and z components in ECEF for that rows satellite CM ECEF position
+Results = Results + zeros(size(Results, 1), 3 );
