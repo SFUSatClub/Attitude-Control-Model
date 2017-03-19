@@ -283,10 +283,7 @@ assignin('base', 'Results', Results);
 axes(handles.Main_Plot)
 cla reset;
 plot3(Results(:,8),Results(:,9),Results(:,10))
-hold on
-x = line([0 10000000],[0,0],[0,0],'color','r');
-y = line([0 0],[0,10000000],[0,0],'color','g');
-z = line([0 0],[0,0],[0,10000000],'color','b');
+set(axes_handle, 'view
 if(get(handles.Plot_Earth, 'Value') == 1)
     hold on
     [x_earth, y_earth, z_earth] = sphere(200);
@@ -302,7 +299,7 @@ if(get(handles.Plot_CHIME, 'Value') == 1)
     [CHIME_Cart_x, CHIME_Cart_y, CHIME_Cart_z] = sph2cart(deg2rad(240.376), deg2rad(49.321), 6371050);
     [x_CHIME, y_CHIME, z_CHIME] = sphere(200);
     shading interp
-    CHIME=surfl(50000*x_CHIME+CHIME_Cart_x,50000*y_CHIME+CHIME_Cart_y,50000*z_CHIME+CHIME_Cart_z);
+    CHIME=surfl(50*x_CHIME+CHIME_Cart_x,50*y_CHIME+CHIME_Cart_y,50*z_CHIME+CHIME_Cart_z);
 end
 
 % hObject    handle to Run_Simulation (see GCBO)
