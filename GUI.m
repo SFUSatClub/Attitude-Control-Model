@@ -22,7 +22,7 @@ function varargout = GUI(varargin)
 
 % Edit the above text to modify the response to help GUI
 
-% Last Modified by GUIDE v2.5 19-Mar-2017 17:25:48
+% Last Modified by GUIDE v2.5 19-Mar-2017 21:44:52
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -270,7 +270,7 @@ set(hObject, 'RowName', {'X', 'Y', 'Z'}, 'ColumnName', {'X', 'Y', 'Z'});
 
 % --- Executes on button press in Run_Simulation.
 function Run_Simulation_Callback(hObject, eventdata, handles)
-Msg_Box = msgbox('Simulation is running');
+Msg_Box = msgbox('Running Simulation');
 Launch_Date = datetime(get(handles.Launch_Date_Input, 'string'),'InputFormat','dd-MMM-yyyy HH:mm:ss');
 Eccentricity = str2double(get(handles.Eccentricity_Input, 'string'));
 Inclination = str2double(get(handles.Inclination_Input, 'string'));
@@ -451,3 +451,15 @@ function Timer_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+
+
+% --- Executes on button press in ISS_Orbit.
+function ISS_Orbit_Callback(hObject, eventdata, handles)
+set(handles.Eccentricity_Input, 'string', num2str(0.0007373));
+set(handles.Inclination_Input, 'string', num2str(0.9013));
+set(handles.Semimajor_Axis_Input, 'string', num2str(6775200));
+set(handles.RAAN_Input, 'string', num2str(2.1078));
+set(handles.Arg_of_Perigee_Input, 'string', num2str(5.4950));
+% hObject    handle to ISS_Orbit (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
