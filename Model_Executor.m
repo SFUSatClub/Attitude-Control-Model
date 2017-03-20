@@ -35,7 +35,6 @@ end
 
 
 %%  End of Simulation
-save('Results', 'Results');
 
 end
 

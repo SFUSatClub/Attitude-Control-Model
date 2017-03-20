@@ -22,7 +22,7 @@ function varargout = GUI(varargin)
 
 % Edit the above text to modify the response to help GUI
 
-% Last Modified by GUIDE v2.5 18-Mar-2017 21:19:40
+% Last Modified by GUIDE v2.5 19-Mar-2017 17:25:48
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -270,6 +270,7 @@ set(hObject, 'RowName', {'X', 'Y', 'Z'}, 'ColumnName', {'X', 'Y', 'Z'});
 
 % --- Executes on button press in Run_Simulation.
 function Run_Simulation_Callback(hObject, eventdata, handles)
+Msg_Box = msgbox('Simulation is running');
 Launch_Date = datetime(get(handles.Launch_Date_Input, 'string'),'InputFormat','dd-MMM-yyyy HH:mm:ss');
 Eccentricity = str2double(get(handles.Eccentricity_Input, 'string'));
 Inclination = str2double(get(handles.Inclination_Input, 'string'));
@@ -281,8 +282,19 @@ Num_of_Orbits = str2double(get(handles.Num_of_Orbits_Input, 'string'));
 Results = Model_Executor(Launch_Date, Eccentricity, Inclination, Semimajor_Axis, Orbital_Interval, RAAN, Arg_of_Perigee, Num_of_Orbits);
 assignin('base', 'Results', Results);
 axes(handles.Main_Plot)
+
 cla reset;
-plot3(Results(:,8),Results(:,9),Results(:,10))
+
+All_Items = get(handles.Plot_Controller, 'string');
+Selected_Index = get(handles.Plot_Controller, 'Value');
+Selected_Item = All_Items{Selected_Index};
+
+if isequal(Selected_Item, 'ECEF')
+    plot3(Results(:,8),Results(:,9),Results(:,10))
+end
+if isequal(Selected_Item, 'ECI')
+    plot3(Results(:,5), Results(:,6), Results(:,7))
+end
 hold on
 x = line([0 10000000],[0,0],[0,0],'color','r');
 y = line([0 0],[0,10000000],[0,0],'color','g');
@@ -304,7 +316,35 @@ if(get(handles.Plot_CHIME, 'Value') == 1)
     shading interp
     CHIME=surfl(50000*x_CHIME+CHIME_Cart_x,50000*y_CHIME+CHIME_Cart_y,50000*z_CHIME+CHIME_Cart_z);
 end
-
+delete(Msg_Box);
+if isequal(Selected_Item, 'ECEF')
+    hold on
+    p = plot3(Results(1,8), Results(1, 9), Results(1, 10), 'o', 'MarkerFaceColor', 'red');
+    hold off
+    axis manual
+    for k = 2:length(Results(:,8))
+        p.XData = Results(k,8);
+        p.YData = Results(k,9);
+        p.ZData = Results(k,10);
+        set(handles.Timer, 'string', datestr(Launch_Date + seconds(Results(k,4))));
+        pause(0.05)
+        drawnow;
+    end
+end
+if isequal(Selected_Item, 'ECI')
+    hold on
+    p = plot3(Results(1,5), Results(1, 6), Results(1, 7), 'o', 'MarkerFaceColor', 'red');
+    hold off
+    axis manual
+    for k = 2:length(Results(:,5))
+        p.XData = Results(k,5);
+        p.YData = Results(k,7);
+        p.ZData = Results(k,8);
+        set(handles.Timer, 'string', datestr(Launch_Date + seconds(Results(k,4))));
+        pause(0.05)
+        drawnow;
+    end
+end
 % hObject    handle to Run_Simulation (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -328,6 +368,19 @@ function Raw_Data_To_csv_Callback(hObject, eventdata, handles)
 
 % --- Executes on button press in Plot_Earth.
 function Plot_Earth_Callback(hObject, eventdata, handles)
+% hold on
+%     [x_earth, y_earth, z_earth] = sphere(200);
+%     colormap summer
+%     shading interp
+%     Earth=surfl(6371000*x_earth,6371000*y_earth,6371000*z_earth);
+%     set(Earth, 'edgecolor', 'none');
+%     set(gcf,'renderer','opengl'); 
+%     alphaVal = x_earth;
+%     set(Earth,  'texturemap', 'AlphaDataMapping', 'none', 'AlphaData', alphaVal);
+% if(get(handles.Plot_Earth, 'Value') == 0)
+%     %set(Earth, 'facecolor', 'none');
+%     alpha(Earth, 0);
+% end
 % hObject    handle to Plot_Earth (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)    
@@ -336,6 +389,18 @@ function Plot_Earth_Callback(hObject, eventdata, handles)
 
 % --- Executes on button press in Plot_CHIME.
 function Plot_CHIME_Callback(hObject, eventdata, handles)
+% hold on
+%     %   CHIME Coordinates: 	49° 19? 15.6? N, 119° 37? 26.4? W
+%     %   49.321 (theta),-119.624 (phi) or 240.376
+%     [CHIME_Cart_x, CHIME_Cart_y, CHIME_Cart_z] = sph2cart(deg2rad(240.376), deg2rad(49.321), 6371050);
+%     [x_CHIME, y_CHIME, z_CHIME] = sphere(200);
+%     shading interp
+%     CHIME=surfl(50000*x_CHIME+CHIME_Cart_x,50000*y_CHIME+CHIME_Cart_y,50000*z_CHIME+CHIME_Cart_z);
+%     set(gcf,'renderer','opengl'); 
+%     %set(CHIME,'FaceAlpha',  'texturemap', 'AlphaDataMapping', 'none', 'AlphaData');
+% if(get(handles.Plot_CHIME, 'Value') == 0)
+%     set(CHIME, 'edgecolor', 'none');
+% end
 % hObject    handle to Plot_CHIME (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -359,6 +424,29 @@ function Plot_Controller_CreateFcn(hObject, eventdata, handles)
 % handles    empty - handles not created until after all CreateFcns called
 
 % Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function Timer_Callback(hObject, eventdata, handles)
+% hObject    handle to Timer (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of Timer as text
+%        str2double(get(hObject,'String')) returns contents of Timer as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function Timer_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to Timer (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
 %       See ISPC and COMPUTER.
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');

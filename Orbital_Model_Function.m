@@ -13,7 +13,7 @@ function [ Output_Matrix ] = Orbital_Model_Function( Start_Datetime, eccentricit
 %   Time values are with respect to the starting time values of the orbit
 Num_of_Terms_in_infinite_Series = 10;
 GM = 3.986005*10^14;
-%   [True_Anomaly, Altitude, Orbit #, Time,
+%   [Sat_True_Anomaly, Altitude, Orbit #, Time,
 %   ECI_x, ECI_y, ECI_z, ECEF_x, ECEF_y, ECEF_z]
 
 % Orbital_Matrix = zeros(Num_Intervals, 3) + repmat(datetime, Num_Intervals, 1) + zeros(Num_Intervals, 6);
