@@ -6,12 +6,12 @@
 % INPUTS
 %--------------------------------------------------------------------------
 % DYNAMICS_FUNCTION(Qs_old, XXX, Ws_old, XXX, Or_new, XXX, PWM_new)
-%
+
 % Qs_old = old cubesat orientation
 % Ws_old = old cubesat velocity
 % Or_new = new reaction wheel velocity
 % PWM_new = new PWM
-%
+
 %--------------------------------------------------------------------------
 
 % Program steps -> 
