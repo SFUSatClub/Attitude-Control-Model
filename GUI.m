@@ -279,7 +279,8 @@ Orbital_Interval = str2double(get(handles.Orbital_Interval_Input, 'string'));
 RAAN = str2double(get(handles.RAAN_Input, 'string'));
 Arg_of_Perigee = str2double(get(handles.Arg_of_Perigee_Input, 'string'));
 Num_of_Orbits = str2double(get(handles.Num_of_Orbits_Input, 'string'));
-Results = Model_Executor(Launch_Date, Eccentricity, Inclination, Semimajor_Axis, Orbital_Interval, RAAN, Arg_of_Perigee, Num_of_Orbits);
+Magnetic_Moment = [1; 1; 1];
+Results = Model_Executor(Launch_Date, Eccentricity, Inclination, Semimajor_Axis, Orbital_Interval, RAAN, Arg_of_Perigee, Num_of_Orbits, Magnetic_Moment);
 assignin('base', 'Results', Results);
 axes(handles.Main_Plot)
 
