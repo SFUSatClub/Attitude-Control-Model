@@ -11,7 +11,7 @@ Results = vertcat(Results, zeros(1, 10));
 %%  Magnetic Field Model - Harrison Handley
 %   Earth Magnetic Field Model
 %   Add to Results three vectors for Earths magnetic field x, y and z components in ECEF for that rows satellite CM ECEF position
-Results = horzcat(Results, zeros(size(Results, 1), 18 ));
+Results = horzcat(Results, zeros(size(Results, 1), 19 ));
 Results(:, 20) = Magnetic_Moment(1);
 Results(:, 21) = Magnetic_Moment(2);
 Results(:, 22) = Magnetic_Moment(3);
@@ -48,6 +48,8 @@ for row = 1:(size(Results, 1) - 1)
         Results(row, 26) = Sun_Position_Output(4);
         Results(row, 27) = Sun_Position_Output(5);
         Results(row, 28) = Sun_Position_Output(6);
+        
+        Results(row, 29) = Shadow_Detection(Results(row, 23), Results(row, 24), Results(row, 25), Results(row, 5), Results(row, 6), Results(row, 7));
 end
 
 %%  Dynamic Model
