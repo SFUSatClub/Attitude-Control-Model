@@ -1,4 +1,4 @@
-function[x_new, y_new, z_new, wx_new, wy_new, wz_new]  = DynamicsFunctionPassive(Ts, bx_new, by_new, bz_new, x_old, y_old, z_old, wx_old, wy_old, wz_old, Mu)
+function[x_new, y_new, z_new, wx_new, wy_new, wz_new]  = DynamicsFunctionPassive(Ts, bx_new, by_new, bz_new, x_old, y_old, z_old, wx_old, wy_old, wz_old, mu_x, mu_y, mu_z)
 
 % 1 - define the inertia matrix
 
@@ -7,6 +7,7 @@ Jb = [0.0333333333333333 0 0; 0 0.0333333333333333 0; 0 0 0.00666666666666667];
 % 2 - calculations from inputs
 
 B_new = [bx_new; by_new; bz_new];
+Mu = [mu_x, mu_y, mu_z];
 T_New = cross(Mu, B_new);
 Orientation_old = [x_old; y_old; z_old]; 
 W_old = [wx_old; wy_old; wz_old];

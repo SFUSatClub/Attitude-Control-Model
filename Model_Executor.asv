@@ -12,9 +12,9 @@ Results = vertcat(Results, zeros(1, 10));
 %   Earth Magnetic Field Model
 %   Add to Results three vectors for Earths magnetic field x, y and z components in ECEF for that rows satellite CM ECEF position
 Results = horzcat(Results, zeros(size(Results, 1), 19 ));
-Results(:, 20) = Magnetic_Moment(1);
-Results(:, 21) = Magnetic_Moment(2);
-Results(:, 22) = Magnetic_Moment(3);
+Results(:, 21) = Magnetic_Moment(1);
+Results(:, 22) = Magnetic_Moment(2);
+Results(:, 23) = Magnetic_Moment(3);
 
 %   Find magnetic field of earth at each position in Teslas
 for row = 1:(size(Results, 1) - 1)
@@ -33,23 +33,22 @@ for row = 1:(size(Results, 1) - 1)
         Results(row, 13) = Bz;
         
         
-        Dynamics_Outputs = DynamicsFunctionPassive( Results(row+1, 4) - Results(row, 4), Results(row , 11), Results(row , 12), Results(row , 13), Results(row , 14), Results(row , 15), Results(row , 16), Results(row, 17), Results(row, 18), Results(row, 19), Results(row, 20), Results(row, 21), Results(row, 22));
-        Results(row + 1, 14) = Dynamics_Outputs(1);
-        Results(row + 1, 15) = Dynamics_Outputs(2);
-        Results(row + 1, 16) = Dynamics_Outputs(3);
-        Results(row + 1, 17) = Dynamics_Outputs(4);
-        Results(row + 1, 18) = Dynamics_Outputs(5);
-        Results(row + 1, 19) = Dynamics_Outputs(6);
+        %[x_or, y_or, z_or, x_w, y_w, z_w] = DynamicsFunctionPassive( Results(row+1, 4) - Results(row, 4), Results(row , 11), Results(row , 12), Results(row , 13), Results(row , 15), Results(row , 16), Results(row , 17), Results(row, 18), Results(row, 19), Results(row, 20), Results(row, 21), Results(row, 22), Results(row, 23));
+        Dynamics_Outputs = DynamicsFunctionPassive( Results(row+1, 4) - Results(row, 4), Results(row , 11), Results(row , 12), Results(row , 13), Results(row , 15), Results(row , 16), Results(row , 17), Results(row, 18), Results(row, 19), Results(row, 20), Results(row, 21), Results(row, 22), Results(row, 23));
+        Results(row + 1, 15) = Dynamics_Outputs(1);
+        Results(row + 1, 16) = Dynamics_Outputs(2);
+        Results(row + 1, 17) = Dynamics_Outputs(3);
+        Results(row + 1, 18) = Dynamics_Outputs(4);
+        Results(row + 1, 19) = Dynamics_Outputs(5);
+        Results(row + 1, 20) = Dynamics_Outputs(6);
         
         Sun_Position_Output = Suns_Orbit(Launch_Time, Results(row, 4));
-        Results(row, 23) = Sun_Position_Output(1);
-        Results(row, 24) = Sun_Position_Output(2);
-        Results(row, 25) = Sun_Position_Output(3);
-        Results(row, 26) = Sun_Position_Output(4);
-        Results(row, 27) = Sun_Position_Output(5);
-        Results(row, 28) = Sun_Position_Output(6);
-        
-        Results(row, 29) = Shadow_Detection(Results(row, 23), Results(row, 24), Results(row, 25), Results(row, 5), Results(row, 6), Results(row, 7));
+        Results(row, 24) = Sun_Position_Output(1);
+        Results(row, 25) = Sun_Position_Output(2);
+        Results(row, 26) = Sun_Position_Output(3);
+        Results(row, 27) = Sun_Position_Output(4);
+        Results(row, 28) = Sun_Position_Output(5);
+        Results(row, 29) = Sun_Position_Output(6);
 end
 
 %%  Dynamic Model
@@ -57,6 +56,6 @@ end
 
 
 %%  End of Simulation
-
+Column_Header = {'True Anomaly [rad]', 'Altitude [m]', 'Satellite Orbital Number', 'Time (s)', 'Sat ECI_x', 'Sat ECI_y', 'Sat ECI_z', 'Sat ECEF_x', 'Sat ECEF_y', 'Sat ECEF_z [m]', 'Bx_ECEF [nT]', 'By_ECEF [nT]', 'Bz_ECEF [nT]', 'Sat x_Orientation_ECI', 'Sat y_Orientation_ECI', 'Sat z_Orientation_ECI', 'Sat x_Angular_Velocity_ECI [rad/s]', 'Sat y_Angular_Velocity_ECI [rad/s]', 'Sat z_Angular_Velocity_ECI [rad/s]', 'Magnetic Moment_x', 'Magnetic Moment_y', 'Magnetic Moment_z', 'Sun x_ECI [m]', 'Sun y_ECI [m]', 'Sun z_ECI [m]', 'Sun x_ECEF [m]', 'Sun y_ECEF [m]', 'Sun z_ECEF [m]'};
 end
 
