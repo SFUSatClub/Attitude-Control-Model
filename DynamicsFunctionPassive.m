@@ -1,24 +1,27 @@
-function[x_new, y_new, z_new, wx_cubesat_new, wy_cubesat_new, wz_cubesat_new]  = DynamicsFunctionPassive(Ts, bx_field_new, by_field_new, bz_field_new, x_old, y_old, z_old, wx_cubesat_old, wy_cubesat_old, wz_cubesat_old, Mu_magnet_new)
+function[x_new, y_new, z_new, wx_new, wy_new, wz_new]  = DynamicsFunctionPassive(Ts, bx_new, by_new, bz_new, x_old, y_old, z_old, wx_old, wy_old, wz_old, Mu)
 
 % 1 - define the inertia matrix
 
-J_cubesat_matrix = [0.0333333333333333 0 0; 0 0.0333333333333333 0; 0 0 0.00666666666666667];
+Jb = [0.0333333333333333 0 0; 0 0.0333333333333333 0; 0 0 0.00666666666666667];
 
 % 2 - calculations from inputs
 
-B_field_new = [bx_field_new; by_field_new; bz_field_new];
-Torque_Applied_New = cross(Mu_magnet_new, B_field_new);
+B_new = [bx_new; by_new; bz_new];
+T_New = cross(Mu, B_new);
 Orientation_old = [x_old; y_old; z_old]; 
-W_cubesat_old = [wx_cubesat_old; wy_cubesat_old; wz_cubesat_old];
+W_old = [wx_old; wy_old; wz_old];
+H_old = Jb*W_old;
 
 % 3 - Calculate the new cubesat angular velocity
 
-W_cubesat_dot = inv(J_cubesat_matrix)*Torque_Applied_New;
-W_cubesat_new = W_cubesat_old + W_cubesat_dot;
+W_dot = inverse(Jb)*(-T_New - cross(W_old,H_old));
+W_new = W_old + W_dot;
+[wx_new; wy_new; wz_new] = W_new;
 
 % 4 - Calculate new orientation quaternion
 
-Orientation_dot = Ts*W_cubesat_new;
-Orientation_new = Orientation_old + Ts*W_cubesat_new;
+Orientation_dot = Ts*W_dot;
+Orientation_new = Orientation_old + Orientation_dot;
+[x_new; y_new; z_new] = Orientation_new;
 
 end
