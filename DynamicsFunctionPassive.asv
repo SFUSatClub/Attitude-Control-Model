@@ -11,15 +11,15 @@ Jb = [0.0333333333333333 0                  0
 
 %Earths Magnetic Field
 
-B_new = [bx_new 0      0 
-         0      by_new 0 
-         0      0      bz_new];
+B_new = [bx_new 
+         by_new 
+         bz_new];
 
 %Magnetic Moment of the Bar Magnet
 
-Mu = [mu_x 0    0 
-      0    mu_y 0 
-      0    0    mu_z];
+Mu = [mu_x 
+      mu_y 
+      mu_z];
   
 %Direction of Bar Magnet Applied Torque
 
@@ -27,15 +27,15 @@ T_New = cross(Mu, B_new);
 
 %Satellite Orientation from previous timestep
 
-O_old = [x_old 0     0 
-         0     y_old 0 
-         0     0     z_old]; 
+O_old = [x_old 
+         y_old 
+         z_old]; 
 
 %Satellite angular velocity from previous timestep
 
-W_old = [wx_old 0      0 
-         0      wy_old 0 
-         0      0      wz_old];
+W_old = [wx_old 
+         wy_old
+         wz_old];
 
 %Satellite momentum from the previous timestep
 
@@ -65,11 +65,18 @@ O_new = O_old + O_dot;
 
 % Step 3 - Assign calculated values to the output variables
 
-wx_new = W_new(1,1);
-wy_new = W_new(2,2);
-wz_new = W_new(3,3);
-ox_new = O_new(1,1);
-oy_new = O_new(2,2);
-oz_new = O_new(3,3);
+wx_new = W_new(1);
+wy_new = W_new(2);
+wz_new = W_new(3);
+ox_new = O_new(1);
+oy_new = O_new(2);
+oz_new = O_new(3);
+
+Outputs = [O_new(1), O_new(2), O_new(1)
+oy_new = O_new(2);
+oz_new = O_new(3);W_new(1);
+wy_new = W_new(2);
+wz_new = W_new(3);
+
 
 end

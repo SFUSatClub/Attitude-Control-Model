@@ -1,4 +1,4 @@
-function[ox_new, oy_new, oz_new, wx_new, wy_new, wz_new]  = DynamicsFunctionPassive(Ts, bx_new, by_new, bz_new, x_old, y_old, z_old, wx_old, wy_old, wz_old, mu_x, mu_y, mu_z)
+function[Outputs]  = DynamicsFunctionPassive(Ts, bx_new, by_new, bz_new, x_old, y_old, z_old, wx_old, wy_old, wz_old, mu_x, mu_y, mu_z)
 
 %%
 %Definitions
@@ -65,11 +65,14 @@ O_new = O_old + O_dot;
 
 % Step 3 - Assign calculated values to the output variables
 
-wx_new = W_new(1);
-wy_new = W_new(2);
-wz_new = W_new(3);
-ox_new = O_new(1);
-oy_new = O_new(2);
-oz_new = O_new(3);
+%wx_new = W_new(1);
+%wy_new = W_new(2);
+%wz_new = W_new(3);
+%ox_new = O_new(1);
+%oy_new = O_new(2);
+%oz_new = O_new(3);
+
+Outputs = [O_new(1), O_new(2), O_new(3), W_new(1), W_new(2), W_new(3)];
+
 
 end
