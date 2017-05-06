@@ -1,7 +1,18 @@
-function[ox_new, oy_new, oz_new, wx_new, wy_new, wz_new]  = DynamicsFunctionPassive(Ts, bx_new, by_new, bz_new, x_old, y_old, z_old, wx_old, wy_old, wz_old, mu_x, mu_y, mu_z)
-
-%%
 %Definitions
+
+Ts = 1;
+bx_new = 1;
+by_new = 1;
+bz_new = 1;
+mu_x = 1;
+mu_y = 1;
+mu_z = 1;
+x_old = 1;
+y_old = 1;
+z_old = 1;
+wx_old = 1;
+wy_old = 1;
+wz_old = 1;
 
 %Inertia Matrix
 
@@ -71,5 +82,3 @@ wz_new = W_new(3);
 ox_new = O_new(1);
 oy_new = O_new(2);
 oz_new = O_new(3);
-
-end

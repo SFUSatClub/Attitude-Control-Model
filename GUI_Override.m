@@ -17,7 +17,7 @@ Magnetic_Moment = [ 0.5; 0.1; 0.1];
 %   Dynamic Properties
 Inertia_Tensor = [0.0267, 0.03, 0.1; 0.03, 0.1333, 0.01; 0.03, 0.01, 0.1333]; % x in long direction [kg*m2]
 Results = Model_Executor(Launch_Date, Eccentricity, Inclination, Semimajor_Axis, Orbital_Interval, RAAN, Arg_of_Perigee, Num_of_Orbits, Magnetic_Moment);
-Column_Header = {'True Anomaly [rad]', 'Altitude [m]', 'Satellite Orbital Number', 'Time (s)', 'Sat ECI_x [m]', 'Sat ECI_y [m]', 'Sat ECI_z [m]', 'Sat ECEF_x [m]', 'Sat ECEF_y [m]', 'Sat ECEF_z [m]', 'Bx_ECEF [T]', 'By_ECEF [T]', 'Bz_ECEF [T]', 'Sat x_Orientation_ECI', 'Sat y_Orientation_ECI', 'Sat z_Orientation_ECI', 'Sat x_Angular_Velocity_ECI [rad/s]', 'Sat y_Angular_Velocity_ECI [rad/s]', 'Sat z_Angular_Velocity_ECI [rad/s]', 'Magnetic Moment_x', 'Magnetic Moment_y', 'Magnetic Moment_z', 'Sun x_ECI [m]', 'Sun y_ECI [m]', 'Sun z_ECI [m]', 'Sun x_ECEF [m]', 'Sun y_ECEF [m]', 'Sun z_ECEF [m]', 'Shadow [T or F]'};
+Column_Header = {'True Anomaly [rad]', 'Altitude [m]', 'Satellite Orbital Number', 'Time (s)', 'Sat ECI_x [rad]', 'Sat ECI_y [rad]', 'Sat ECI_z [rad]', 'Sat ECEF_x [m]', 'Sat ECEF_y [m]', 'Sat ECEF_z [m]', 'Bx_ECEF [T]', 'By_ECEF [T]', 'Bz_ECEF [T]', 'Sat x_Orientation_ECI', 'Sat y_Orientation_ECI', 'Sat z_Orientation_ECI', 'Sat x_Angular_Velocity_ECI [rad/s]', 'Sat y_Angular_Velocity_ECI [rad/s]', 'Sat z_Angular_Velocity_ECI [rad/s]', 'Magnetic Moment_x', 'Magnetic Moment_y', 'Magnetic Moment_z', 'Sun x_ECI [m]', 'Sun y_ECI [m]', 'Sun z_ECI [m]', 'Sun x_ECEF [m]', 'Sun y_ECEF [m]', 'Sun z_ECEF [m]', 'Shadow [T or F]'};
 Final_Results = [Column_Header; num2cell(Results)];
 %   Model Operation
 

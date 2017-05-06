@@ -5,18 +5,20 @@
 %   GUI Replacement
 Launch_Date = datetime();
 %   Orbital Properties
-Eccentricity = 0.2;
-Inclination = pi/2;     %[rad]
-Semimajor_Axis = 6871000;   %[m]
-Mesh = 100;
-Orbital_RAAN = 0.3; %[rad]
-Orbital_Arg_of_Perigee = pi/4;  %[rad]
-Orbital_Num_of_Orbits = 5;
-Magnetic_Moment = [ 1; 1; 1];
+Eccentricity = 0.0007373;
+Inclination = 0.9013;     %[rad]
+Semimajor_Axis = 6775200;   %[m]
+Orbital_Interval = 10;
+RAAN = 2.1078; %[rad]
+Arg_of_Perigee = 5.495;  %[rad]
+Num_of_Orbits = 500;
+Magnetic_Moment = [ 0.5; 0.1; 0.1];
 
 %   Dynamic Properties
 Inertia_Tensor = [0.0267, 0.03, 0.1; 0.03, 0.1333, 0.01; 0.03, 0.01, 0.1333]; % x in long direction [kg*m2]
 Results = Model_Executor(Launch_Date, Eccentricity, Inclination, Semimajor_Axis, Orbital_Interval, RAAN, Arg_of_Perigee, Num_of_Orbits, Magnetic_Moment);
+Column_Header = {'True Anomaly [rad]', 'Altitude [m]', 'Satellite Orbital Number', 'Time (s)', 'Sat ECI_x [rad]', 'Sat ECI_y [rad]', 'Sat ECI_z [rad]', 'Sat ECEF_x [m]', 'Sat ECEF_y [m]', 'Sat ECEF_z [m]', 'Bx_ECEF [T]', 'By_ECEF [T]', 'Bz_ECEF [T]', 'Sat x_Orientation_ECI', 'Sat y_Orientation_ECI', 'Sat z_Orientation_ECI', 'Sat x_Angular_Velocity_ECI [rad/s]', 'Sat y_Angular_Velocity_ECI [rad/s]', 'Sat z_Angular_Velocity_ECI [rad/s]', 'Magnetic Moment_x', 'Magnetic Moment_y', 'Magnetic Moment_z', 'Sun x_ECI [m]', 'Sun y_ECI [m]', 'Sun z_ECI [m]', 'Sun x_ECEF [m]', 'Sun y_ECEF [m]', 'Sun z_ECEF [m]', 'Shadow [T or F]'};
+Final_Results = [Column_Header; num2cell(Results)];
 %   Model Operation
 
 %%  Orbital Propagation Model - Harrison Handley
