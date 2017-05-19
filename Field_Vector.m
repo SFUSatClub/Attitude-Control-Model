@@ -1,6 +1,6 @@
 %Main Operation with GUI Inputs
 clear all
-%   Current Date and time
+%Current Date and time
 Year = 2015;
 Month = 1;
 Day = 1;
@@ -42,11 +42,13 @@ for column = 1:Mesh_Size
     theta = CHIME_Theta - Angle_Range + (Angle_Range*column*2/Mesh_Size);
     for row = 1:Mesh_Size
         phi = CHIME_Phi - Angle_Range + (Angle_Range*row*2/Mesh_Size);
+        
         r = Earths_Mean_Radius + Altitude_Vector_Field;
         [x, y, z] = sph2cart(deg2rad(phi), deg2rad(theta), r);
         x_matrix(row, column) = x;
         y_matrix(row, column) = y;
         z_matrix(row, column) = z;
+        
         [Br ,Bt, Bp] = IGRF_Model(r, theta, phi,Days_since_Jan_1st_2015);
         [Bx, By, Bz] = sph2cart(Bp, Bt, Br);
         Bx_matrix(row, column) = Bx;
@@ -61,6 +63,7 @@ figure;
 quiver3(x_matrix, y_matrix, z_matrix, Bx_matrix, By_matrix, Bz_matrix)
 hold on
 [x_earth, y_earth, z_earth] = sphere(200);
+
 colormap summer
 shading interp
 Earth=surfl(Earths_Mean_Radius*x_earth,Earths_Mean_Radius*y_earth,Earths_Mean_Radius*z_earth);

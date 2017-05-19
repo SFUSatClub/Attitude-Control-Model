@@ -1,6 +1,6 @@
 function [ Output_Matrix ] = Orbital_Model_Function( Start_Datetime, eccentricity, inclination, semimajor_axis, Num_Intervals, RAAN, argument_of_perigee, num_of_orbits)
-%   Keplerian Orbital Model
 
+%   Keplerian Orbital Model
 %   eccentricity is the eccentricity of the orbit specified by GUI
 %   inclination is the incliation of the orbit specified by GUI
 %   semimajor_axis is half the length of the elliptical orbit specified by
@@ -20,7 +20,7 @@ GM = 3.986005*10^14;
 % Orbital_Matrix = zeros(Num_Intervals, 3) + repmat(datetime, Num_Intervals, 1) + zeros(Num_Intervals, 6);
 Orbital_Matrix = zeros(Num_Intervals, 10 );
 
-E = zeros(1,Num_Intervals); %   Mean Anomaly
+E = zeros(1, Num_Intervals); %   Mean Anomaly
 %   Provides the angle vector for which the orbit is divided up into when
 %   considering the same orbit with e = 0
 M = linspace(0,2*pi,Num_Intervals); %   Mean Anomaly
