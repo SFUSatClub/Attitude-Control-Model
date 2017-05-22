@@ -1,6 +1,7 @@
 function [ Results ] = Model_Executor(Launch_Time, Orbital_Eccentricity, Orbital_Inclination, Orbital_Semimajor_Axis, Orbital_Mesh, Orbital_RAAN, Orbital_Arg_of_Perigee, Orbital_Num_of_Orbits, Magnetic_Moment)
 %Main Operation with GUI Inputs
-%   Output Format: [True_Anomaly, Altitude, Orbital_Number, Time_since_launch, CM_ECI_x, CM_ECI_y, CM_ECI_z, CM_ECEF_x, CM_ECEF_y, CM_ECEF_z, Earth_B_x_ECEF, Earth_B_y_ECEF, Earth_B_z_ECEF]
+%   Output Format: [True_Anomaly, Altitude, Orbital_Number, Time_since_launch, CM_ECI_x, CM_ECI_y, CM_ECI_z, CM_ECEF_x, CM_ECEF_y, CM_ECEF_z, Cubesat_Orientation_x, Cubesat_Orientation_y, Cubesat_Orientation_z, Cubesat_Rotational_Velocity_x, Cubesat_Rotational_Velocity_y, Cubesat_Rotational_Velocity_z, Magnet_moment_x, Magnet_moment_y, Magnet_moment_z, Earth_B_x_ECEF, Earth_B_y_ECEF, Earth_B_z_ECEF, Sun_x_ECI, Sun_y_ECI, Sun_z_ECI, Sun_x_ECEF, Sun_y_ECEF, Sun_z_ECEF]
+%
 %
 
 %%  Orbital Propagation Model - Harrison Handley
