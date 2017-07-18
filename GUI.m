@@ -22,7 +22,7 @@ function varargout = GUI(varargin)
 
 % Edit the above text to modify the response to help GUI
 
-% Last Modified by GUIDE v2.5 19-Mar-2017 21:44:52
+% Last Modified by GUIDE v2.5 18-Jul-2017 03:50:16
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -454,13 +454,22 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-% --- Executes on button press in ISS_Orbit.
-function ISS_Orbit_Callback(hObject, eventdata, handles)
-set(handles.Eccentricity_Input, 'string', num2str(0.0007373));
-set(handles.Inclination_Input, 'string', num2str(0.9013));
-set(handles.Semimajor_Axis_Input, 'string', num2str(6775200));
-set(handles.RAAN_Input, 'string', num2str(2.1078));
-set(handles.Arg_of_Perigee_Input, 'string', num2str(5.4950));
-% hObject    handle to ISS_Orbit (see GCBO)
+% --- Executes on button press in Load_Config.
+function Load_Config_Callback(hObject, eventdata, handles)
+[FileName, PathName] = uigetfile('*.ini', 'Select Model Configuration File')
+ini = IniConfig();
+ini.ReadFile(strcat(PathName, FileName))
+% sections = ini.GetSections()
+% keys = ini.GetKeys(sections{1})
+% values = ini.GetValues(sections{1}, keys)
+
+set(handles.Orbital_Interval_Input, 'string', num2str(ini.GetValues('Model', 'Orbit_Interval')));
+set(handles.Num_of_Orbits_Input, 'string', num2str(ini.GetValues('Model', 'Num_Orbits')));
+set(handles.Eccentricity_Input, 'string', num2str(ini.GetValues('Orbit', 'Eccentricity')));
+set(handles.Inclination_Input, 'string', num2str(ini.GetValues('Orbit', 'Inclination')));
+set(handles.Semimajor_Axis_Input, 'string', num2str(ini.GetValues('Orbit', 'Semimajor_Axis')));
+set(handles.RAAN_Input, 'string', num2str(ini.GetValues('Orbit', 'RAAN')));
+set(handles.Arg_of_Perigee_Input, 'string', num2str(ini.GetValues('Orbit', 'Arg_of_Perigee')));
+% hObject    handle to Load_Config (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
