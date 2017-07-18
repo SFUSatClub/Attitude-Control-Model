@@ -3,12 +3,13 @@
 
 %% 
 %   GUI Replacement
+tic;
 Launch_Date = datetime();
 %   Orbital Properties
 Eccentricity = 0.0007373;
 Inclination = 0.9013;     %[rad]
 Semimajor_Axis = 6775200;   %[m]
-Orbital_Interval = 100;
+Orbital_Interval = 1000;
 RAAN = 2.1078; %[rad]
 Arg_of_Perigee = 5.95;  %[rad]
 Num_of_Orbits = 5;
@@ -20,7 +21,7 @@ Results = Model_Executor(Launch_Date, Eccentricity, Inclination, Semimajor_Axis,
 Column_Header = {'True Anomaly [rad]', 'Altitude [m]', 'Satellite Orbital Number', 'Time (s)', 'Sat ECI_x [rad]', 'Sat ECI_y [rad]', 'Sat ECI_z [rad]', 'Sat ECEF_x [m]', 'Sat ECEF_y [m]', 'Sat ECEF_z [m]', 'Bx_ECEF [T]', 'By_ECEF [T]', 'Bz_ECEF [T]', 'Sat x_Orientation_ECI', 'Sat y_Orientation_ECI', 'Sat z_Orientation_ECI', 'Sat x_Angular_Velocity_ECI [rad/s]', 'Sat y_Angular_Velocity_ECI [rad/s]', 'Sat z_Angular_Velocity_ECI [rad/s]', 'Magnetic Moment_x', 'Magnetic Moment_y', 'Magnetic Moment_z', 'Sun x_ECI [m]', 'Sun y_ECI [m]', 'Sun z_ECI [m]', 'Sun x_ECEF [m]', 'Sun y_ECEF [m]', 'Sun z_ECEF [m]', 'Shadow [T or F]'};
 Final_Results = [Column_Header; num2cell(Results)];
 %   Model Operation
-
+toc;
 %%  Orbital Propagation Model - Harrison Handley
 %   Orbit Propagation - Defines Result_Matrix as
 %   [True_Anomaly, Altitude, Orbital_Number, Time_since_launch, CM_ECI_x, CM_ECI_y, CM_ECI_z, CM_ECEF_x, CM_ECEF_y, CM_ECEF_z]
