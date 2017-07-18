@@ -1,4 +1,7 @@
-function[Outputs]  = DynamicsFunctionPassive(Ts, bx_new, by_new, bz_new, x_old, y_old, z_old, wx_old, wy_old, wz_old, mu_x, mu_y, mu_z)
+function[Outputs]  = DynamicsFunctionPassive(Ts, bx_new, by_new, bz_new, x_old, y_old, z_old, wx_old, wy_old, wz_old, mu_x_body
+
+
+, mu_y, mu_z)
 %%
 %Definitions
 

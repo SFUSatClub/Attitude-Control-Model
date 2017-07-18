@@ -76,8 +76,8 @@ end
 for k = 1:length(Output_Matrix)
     Temp_Date = Start_Datetime + seconds(Output_Matrix(k, 4));
     Date_Array = [year(Temp_Date), month(Temp_Date), day(Temp_Date), hour(Temp_Date), minute(Temp_Date), second(Temp_Date)];
-    ECI2ECEF_Matrix = dcmeci2ecef('IAU-2000/2006', Date_Array);
-    Temp_Array = [Output_Matrix(k,5), Output_Matrix(k,6), Output_Matrix(k,7)]*ECI2ECEF_Matrix;
+    %ECI2ECEF_Matrix = dcmeci2ecef('IAU-2000/2006', Date_Array);
+    %Temp_Array = [Output_Matrix(k,5), Output_Matrix(k,6), Output_Matrix(k,7)]*ECI2ECEF_Matrix;
     Output_Matrix(k, 8) = Temp_Array(1);
     Output_Matrix(k, 9) = Temp_Array(2);
     Output_Matrix(k, 10) = Temp_Array(3);

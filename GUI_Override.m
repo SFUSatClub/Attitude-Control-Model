@@ -4,6 +4,7 @@
 %% 
 %   GUI Replacement
 tic;
+
 Launch_Date = datetime();
 %   Orbital Properties
 Eccentricity = 0.0007373;

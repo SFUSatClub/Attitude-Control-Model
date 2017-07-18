@@ -27,7 +27,7 @@ Current_Time = datetime();
 %   Convert Earth Magnetic field frame to Body Reference
 %   Convert from ECEF to ECI
 Date_Array = [year(Current_Time), month(Current_Time), day(Current_Time), hour(Current_Time), minute(Current_Time), second(Current_Time)];
-%ECI2ECEF_Matrix = dcmeci2ecef('IAU-2000/2006', Date_Array);
+ECI2ECEF_Matrix = dcmeci2ecef('IAU-2000/2006', Date_Array);
 %ECI2ECEF_Matrix = eye(3); For Testing
 Earth_Magnetic_Field_ECI = [Bx_Earth, By_Earth, Bz_Earth]*inv(ECI2ECEF_Matrix)
 Rz_ECI2BodyRefFrame = [cos(Yaw_Orientation), -sin(Yaw_Orientation), 0;...
