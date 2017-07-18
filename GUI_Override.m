@@ -10,7 +10,7 @@ Inclination = 0.9013;     %[rad]
 Semimajor_Axis = 6775200;   %[m]
 Orbital_Interval = 100;
 RAAN = 2.1078; %[rad]
-Arg_of_Perigee = 5.495;  %[rad]
+Arg_of_Perigee = 5.95;  %[rad]
 Num_of_Orbits = 5;
 Magnetic_Moment = [ 0.5; 0.1; 0.1];
 

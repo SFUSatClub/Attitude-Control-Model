@@ -48,7 +48,6 @@ for column = 1:Mesh_Size
         x_matrix(row, column) = x;
         y_matrix(row, column) = y;
         z_matrix(row, column) = z;
-        
         [Br ,Bt, Bp] = IGRF_Model(r, theta, phi,Days_since_Jan_1st_2015);
         [Bx, By, Bz] = sph2cart(Bp, Bt, Br);
         Bx_matrix(row, column) = Bx;
@@ -73,5 +72,3 @@ hold on
 [x_CHIME, y_CHIME, z_CHIME] = sphere(200);
 shading interp
 CHIME=surfl(50*x_CHIME+CHIME_Cart_x,50*y_CHIME+CHIME_Cart_y,50*z_CHIME+CHIME_Cart_z);
-
-

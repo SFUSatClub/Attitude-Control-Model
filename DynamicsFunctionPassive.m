@@ -27,6 +27,7 @@ Mu = [mu_x, mu_y, mu_z];
 O_old = [x_old; y_old; z_old]; 
 W_old = [wx_old; wy_old; wz_old];
 H_old = Jb*W_old;
+%Mu_body = Mu_body_rotate(O_old(1), O_old(2), O_old(3));
 
 % Output variable initialization
 wx_new = 0; 
@@ -38,18 +39,19 @@ oz_new = 0;
 
 %%
 % Calculations
-%Mubody=Mu_rotate(x_old, y_old, z_old)
+
 % Step 1 - Find the total torque
 T_mag = cross(Mu, B_new);
 
 % Step 1 - Calculate the new satellite angular velocity
-W_dot = inv(Jb)*(-T_mag - cross(W_old,H_old));
+W_dot = inv(Jb)*(-T_mag - cross(W_old, H_old));
 W_new = W_old + Ts*W_dot;
 
 % Step 2 - Calculate the new satellite orientation
 O_dot = -[     0,  wz_old, -wy_old 
           -wz_old,       0,  wx_old 
           wy_old, -wx_old,       0]*O_old;
+
       
 O_new = O_old + Ts*O_dot;
 
