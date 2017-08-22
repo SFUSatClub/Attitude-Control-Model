@@ -71,25 +71,22 @@ classdef LinkModelclass
         end
         
         function data = Eb_No_calc(data, e_Angl)
-            sat_sig_of_merrit = sat_ant_gain(e_Angl) - data.total_inline_loss ...
-            - 10*log10(data.sys_noise_temp); %uptimate measure of receiver's perf
+            sat_sig_of_merrit = sat_ant_gain(e_Angl) - (1:length(e_Angle))*(data.total_inline_loss ...
+            - 10*log10(data.sys_noise_temp)); %uptimate measure of receiver's perf
 
-            SC_SNR_Pwr_Den = data.Sat_Isot_signal_lvl - data.antenna_pt_loss ...
-            - data.boltzman_const + sat_sig_of_merrit;
-            
-            cmd_Eb_No = SC_SNR_Pwr_Den - data.data_rate;
-            
-            data.Eb_No_link = cmd_Eb_No - data.Eb_No_threshold;
+            SC_SNR_Pwr_Den = (data.Sat_Isot_signal_lvl - data.antenna_pt_loss ...
+            - data.boltzman_const)*(1:length(e_Angle)) + sat_sig_of_merrit;
+
+            data.Eb_No_link = SC_SNR_Pwr_Den - (1:length(e_Angle))*(data.data_rate - data.Eb_No_threshold);
 
         end
         
         function data = SN_margin_calc(data, e_Angle)
-            Sig_Pwr_Sat_LNA_input = data.Sat_Isot_signal_lvl - data.antenna_pt_loss ...
-                + sat_ant_gain(e_Angle) - data.total_inline_loss;
-            
-            SN_Pwr_Ratio_Gnd = Sig_Pwr_Sat_LNA_input - data.Sat_rx_noise_pwr;
-            
-            data.SN_margin_link = SN_Pwr_Ratio_Gnd - data.req_SN;
+            Sig_Pwr_Sat_LNA_input = (data.Sat_Isot_signal_lvl - data.antenna_pt_loss...
+                - data.total_inline_loss)*(1:length(e_Angle)) + sat_ant_gain(e_Angle) ;
+
+            data.SN_margin_link = Sig_Pwr_Sat_LNA_input...
+                - (1:length(e_Angle))*(data.Sat_rx_noise_pwr - data.req_SN);
             
         end
         
